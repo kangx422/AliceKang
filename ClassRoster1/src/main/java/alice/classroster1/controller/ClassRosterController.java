@@ -5,9 +5,13 @@
  */
 package alice.classroster1.controller;
 
+import alice.classroster1.dao.ClassRosterDao;
+import alice.classroster1.dao.ClassRosterDaoFileImpl;
+import alice.classroster1.dto.Student;
 import alice.classroster1.ui.ClassRosterView;
 import alice.classroster1.ui.UserIO;
 import alice.classroster1.ui.UserIOConsoleImpl;
+import java.util.List;
 
 /**
  *
@@ -17,20 +21,22 @@ public class ClassRosterController {
 
     private final UserIO io = new UserIOConsoleImpl();
     ClassRosterView view = new ClassRosterView();
+    ClassRosterDao dao = new ClassRosterDaoFileImpl();
 
     public void run() {
         boolean keepGoing = true;
-        int menuSelection = 0;
+        
         while (keepGoing) {
-            
+           
+            int menuSelection = 0;
             menuSelection = getMenuSelection();
             
             switch (menuSelection) {
                 case 1:
-                    io.print("LIST STUDENTS");
+                    listStudents();
                     break;
                 case 2:
-                    io.print("CREATE STUDENT");
+                    createStudent();
                     break;
                 case 3:
                     io.print("VIEW STUDENT");
@@ -50,5 +56,18 @@ public class ClassRosterController {
     }
     private int getMenuSelection() {
         return view.printMenuAndGeteSelection();
+    }
+    
+    private void createStudent() {
+        view.displayCreateStudentBanner();
+        Student newStudent = view.getNewStudentInfo();
+        dao.addStudent(newStudent.getStudentId(), newStudent);
+        view.displayCreateSuccessBanner();
+    }
+
+    private void listStudents() {
+        view.displayAllStudentsBanner();
+        List<Student> studentList = dao.getAllStudents();
+        view.displayStudentList(studentList);
     }
 }
