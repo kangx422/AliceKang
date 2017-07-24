@@ -190,18 +190,8 @@ public class UserIOConsoleImpl implements UserIO {
 
     @Override
     public String readString(String prompt) {
-        System.out.println(prompt);
-        String input = s.nextLine();
-        boolean isString = false;
-        while (!isString) {
-            if (input.length() > 0) {
-                isString = true;
-            } else {
-                System.out.println("Whoops please enter a string");
-                input = s.nextLine();
-            }
-        }
-        return input;
+        print(prompt);
+        return s.nextLine();
     }
 
     @Override

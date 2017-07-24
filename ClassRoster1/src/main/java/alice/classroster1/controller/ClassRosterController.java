@@ -9,8 +9,6 @@ import alice.classroster1.dao.ClassRosterDao;
 import alice.classroster1.dao.ClassRosterDaoFileImpl;
 import alice.classroster1.dto.Student;
 import alice.classroster1.ui.ClassRosterView;
-import alice.classroster1.ui.UserIO;
-import alice.classroster1.ui.UserIOConsoleImpl;
 import java.util.List;
 
 /**
@@ -19,17 +17,14 @@ import java.util.List;
  */
 public class ClassRosterController {
 
-    private final UserIO io = new UserIOConsoleImpl();
     ClassRosterView view = new ClassRosterView();
     ClassRosterDao dao = new ClassRosterDaoFileImpl();
 
     public void run() {
         boolean keepGoing = true;
-        
         while (keepGoing) {
            
-            int menuSelection = 0;
-            menuSelection = getMenuSelection();
+            int menuSelection = getMenuSelection();
             
             switch (menuSelection) {
                 case 1:
@@ -39,23 +34,23 @@ public class ClassRosterController {
                     createStudent();
                     break;
                 case 3:
-                    io.print("VIEW STUDENT");
+                    searchStudent();
                     break;
                 case 4: 
-                    io.print("REMOVE STUDENT");
+                    removeStudent();
                     break; 
                 case 5:
                     keepGoing = false;
                     break;
-                default: 
-                    io.print("UNKNOWN COMMAND");
-                    
+                default:   
+                    unknownCommand();
             }
         }
-        io.print("GOOD BYE");
+        exitMessage();
     }
+    
     private int getMenuSelection() {
-        return view.printMenuAndGeteSelection();
+        return view.printMenuAndGetSelection();
     }
     
     private void createStudent() {
@@ -69,5 +64,27 @@ public class ClassRosterController {
         view.displayAllStudentsBanner();
         List<Student> studentList = dao.getAllStudents();
         view.displayStudentList(studentList);
+    }
+
+    private void searchStudent() {
+        view.displaySearchedStudentBanner();
+        String studentId = view.getStudentIdChoice();
+        Student student = dao.getStudent(studentId);
+        view.displayStudent(student);
+    }
+
+    private void removeStudent() {
+        view.displayRemoveStudentBanner();
+        String studentId = view.getStudentIdChoice();
+        dao.removeStudent(studentId);
+        view.displaySuccessfullyRemovedBanner();
+    }
+    
+    private void unknownCommand() {
+        view.displayUnknownCommandBanner();
+    }
+    
+    private void exitMessage() {
+        view.displayExitBanner();
     }
 }

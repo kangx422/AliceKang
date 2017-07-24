@@ -30,17 +30,18 @@ public class ClassRosterDaoFileImpl implements ClassRosterDao {
         return new ArrayList<Student>(students.values()); 
         /* this code get all of the Student objects out of the students map as a collection 
         by calling the values() method.
-        */
+        */ 
     }
 
     @Override
     public Student getStudent(String studentId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return students.get(studentId);
     }
 
     @Override
     public Student removeStudent(String studentId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Student removedStudent = students.remove(studentId);
+        return removedStudent;
     }
 
 

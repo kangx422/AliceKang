@@ -16,7 +16,7 @@ public class ClassRosterView {
 
     UserIO io = new UserIOConsoleImpl();
 
-    public int printMenuAndGeteSelection() {
+    public int printMenuAndGetSelection() {
         io.print("Main Menu");
         io.print("1. List Student IDs");
         io.print("2. Create New Student");
@@ -58,5 +58,41 @@ public class ClassRosterView {
     
     public void displayAllStudentsBanner() {
         io.print("==== Students ====");
+    }
+    
+    public void displaySearchedStudentBanner() {
+        io.print("==== Informatoin on Searched Student ====");
+    }
+    
+    public String getStudentIdChoice() {
+        return io.readString("Please enter the Student ID");
+    }
+    
+    public void displayStudent(Student student) {
+        if (student != null) {
+            io.print(student.getStudentId());
+            io.print(student.getFirstName() + " " + student.getLastName());
+            io.print(student.getCohort());
+            io.print("");
+        } else {
+            io.print("No such student exists");
+        }
+        io.readString("Please hit enter to continue");
+    }
+    
+    public void displayRemoveStudentBanner(){
+        io.print("==== Remove Student ====");
+    }
+
+    public void displaySuccessfullyRemovedBanner(){
+        io.readString("Student succesfully removed. Please hit enter to continue.");
+    }
+    
+    public void displayExitBanner() {
+        io.readString("Goodybe!");
+    }
+    
+    public void displayUnknownCommandBanner() {
+        io.print("Unknown command");
     }
 }
