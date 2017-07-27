@@ -17,9 +17,18 @@ import java.util.List;
  */
 public class ClassRosterController {
 
-    ClassRosterView view = new ClassRosterView();
-    ClassRosterDao dao = new ClassRosterDaoFileImpl();
+//    ClassRosterView view = new ClassRosterView();
+      ClassRosterView view;
+//    ClassRosterController should not be responsible for instantiating a new ClassRosterDaoFileImpl object
+//    ClassRosterDao dao = new ClassRosterDaoFileImpl();
+      ClassRosterDao dao;
 
+//Now we must implement a constructor that initializes these members. 
+    public ClassRosterController(ClassRosterDao dao, ClassRosterView view) {
+          this.dao = dao;
+          this.view = view;
+      }
+      
     public void run() {
         boolean keepGoing = true;
         while (keepGoing) {
@@ -46,8 +55,9 @@ public class ClassRosterController {
                     unknownCommand();
             }
         }
-        exitMessage();
+        exitMessage(); 
     }
+    
     
     private int getMenuSelection() {
         return view.printMenuAndGetSelection();

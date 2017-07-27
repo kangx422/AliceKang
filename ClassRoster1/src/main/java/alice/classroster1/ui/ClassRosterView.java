@@ -14,7 +14,13 @@ import java.util.List;
  */
 public class ClassRosterView {
 
-    UserIO io = new UserIOConsoleImpl();
+//    UserIO io = new UserIOConsoleImpl();
+    private UserIO io;
+    
+    public ClassRosterView(UserIO io) {
+        this.io = io;
+    }
+//    ClassRosterView should not be responsible for instantiating a new UserIOConsoleImpl object
 
     public int printMenuAndGetSelection() {
         io.print("Main Menu");

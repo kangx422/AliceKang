@@ -6,6 +6,11 @@
 package alice.classroster1;
 
 import alice.classroster1.controller.ClassRosterController;
+import alice.classroster1.dao.ClassRosterDao;
+import alice.classroster1.dao.ClassRosterDaoFileImpl;
+import alice.classroster1.ui.ClassRosterView;
+import alice.classroster1.ui.UserIO;
+import alice.classroster1.ui.UserIOConsoleImpl;
 
 /**
  *
@@ -13,7 +18,10 @@ import alice.classroster1.controller.ClassRosterController;
  */
 public class App {
     public static void main(String[] args) {
-        ClassRosterController controller = new ClassRosterController();
+        UserIO io = new UserIOConsoleImpl();
+        ClassRosterView view = new ClassRosterView(io);
+        ClassRosterDao dao = new ClassRosterDaoFileImpl();
+        ClassRosterController controller = new ClassRosterController(dao, view);
         controller.run(); 
     }
 }
