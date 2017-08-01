@@ -101,4 +101,9 @@ public class ClassRosterView {
     public void displayUnknownCommandBanner() {
         io.print("Unknown command");
     }
+    
+    public void displayErrorMessage(String errorMsg) {
+        io.print("=== ERROR ===");
+        io.print(errorMsg);
+    }
 }
